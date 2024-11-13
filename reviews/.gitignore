@@ -1,0 +1,11 @@
+<<<<<<< HEAD
+# Visual Studio files
+.vs/
+bin/
+obj/
+
+# Docker files
+docker-compose.override.yml
+
+# Environment files
+*.env
