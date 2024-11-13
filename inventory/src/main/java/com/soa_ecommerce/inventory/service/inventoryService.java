@@ -3,7 +3,7 @@ package com.soa_ecommerce.inventory.service;
 
 import com.soa_ecommerce.inventory.domain.Inventory;
 import com.soa_ecommerce.inventory.repository.InventoryRepository;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,26 +12,30 @@ import org.springframework.stereotype.Service;
 public class inventoryService {
 
     private final InventoryRepository inventoryRepository;
-    //ajout d'un nouveau produit dans le stock
-    public void receiveProduct(int productId,int quantity){
-        Inventory inventory =inventoryRepository.getInventory(productId);
-        if(inventory!= null){
-            inventory.setTotalQuantity(inventory.getTotalQuantity()+quantity);
-            inventoryRepository.updateInventory(productId,inventory);
-        }else{
-            inventoryRepository.addInventory(Inventory.builder()
-                    .productId(productId)
-                    .totalQuantity(quantity)
-                    .reservedQuantity(0)
-                    .build());
-        }
+    //ajout d'un produit dans le stock
+    public void receiveProduct(Integer productId,Integer quantity){
+
+        inventoryRepository.findById(productId).ifPresentOrElse(
+               inventory ->  {
+                   inventory.setTotalQuantity(inventory.getTotalQuantity()+quantity);
+                   inventoryRepository.save(inventory);
+               },
+                ()->{
+                    inventoryRepository.save(Inventory.builder()
+                            .productId(productId)
+                            .totalQuantity(quantity)
+                            .reservedQuantity(0)
+                            .build());
+                }
+        );
+
     }
 
     //sortie d'une commande
-    public void releaseProduct(int productId,int quantity){
-        Inventory inventory =inventoryRepository.getInventory(productId);
+    public void releaseProduct(Integer productId,Integer quantity){
+        Inventory inventory =inventoryRepository.findById(productId).orElseThrow(()-> new EntityNotFoundException("Inventory not found"));
         inventory.setReservedQuantity(inventory.getReservedQuantity() - quantity);
-        inventoryRepository.updateInventory(productId, inventory);
+        inventoryRepository.save(inventory);
     }
 
 }
