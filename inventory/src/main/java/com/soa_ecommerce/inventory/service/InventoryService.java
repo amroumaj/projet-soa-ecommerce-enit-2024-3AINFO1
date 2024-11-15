@@ -55,4 +55,36 @@ public class InventoryService {
     public boolean isExists(UUID productId) {
         return inventoryRepository.existsById(productId);
     }
+
+    //Reservation d'un produit
+
+    public void reserveProduct(InventoryRequest request) {
+        Inventory inventory = inventoryRepository.findById(request.productId())
+                .orElseThrow(() -> new EntityNotFoundException("Product " + request.productId() + " not found"));
+
+        if (inventory.getTotalQuantity() < request.quantity()) {
+            throw new InsufficientQuantityException("Insufficient quantity for product " + request.productId());
+        }
+
+        inventory.setTotalQuantity(inventory.getTotalQuantity() - request.quantity());
+        inventory.setReservedQuantity(inventory.getReservedQuantity() + request.quantity());
+        inventoryRepository.save(inventory);
+    }
+
+    //annulation de la commande
+    public void cancelOrder(InventoryRequest request) {
+        Inventory inventory = inventoryRepository.findById(request.productId())
+                .orElseThrow(() -> new EntityNotFoundException("Product " + request.productId() + " not found"));
+
+        if (inventory.getReservedQuantity() < request.quantity()) {
+            throw new InsufficientQuantityException("Cannot release this product " + request.productId());
+        }
+
+        inventory.setTotalQuantity(inventory.getTotalQuantity() + request.quantity());
+        inventory.setReservedQuantity(inventory.getReservedQuantity() - request.quantity());
+        inventoryRepository.save(inventory);
+    }
+
+
+
 }
