@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,7 @@ public class InventoryService {
 
     private final InventoryRepository inventoryRepository;
     //ajout d'un produit dans le stock
-    public void receiveProduct(Long productId,Integer quantity){
+    public void receiveProduct(UUID productId, Integer quantity){
 
         inventoryRepository.findById(productId).ifPresentOrElse(
                inventory ->  {
@@ -51,7 +52,7 @@ public class InventoryService {
         });
     }
 
-    public boolean isExists(Long productId) {
+    public boolean isExists(UUID productId) {
         return inventoryRepository.existsById(productId);
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/inventory")
@@ -20,7 +21,7 @@ public class InventoryController {
 
     @PutMapping("/{productId}")
     public ResponseEntity<Void> receiveProduct(
-            @PathVariable Long productId, @RequestParam Integer quantity
+            @PathVariable UUID productId, @RequestParam Integer quantity
     ) {
         inventoryService.receiveProduct(productId, quantity);
         if (inventoryService.isExists(productId)) {
