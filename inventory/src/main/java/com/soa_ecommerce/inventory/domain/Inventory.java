@@ -17,20 +17,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 public class Inventory {
     @Id
-    @GeneratedValue
-    private Integer productId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productId;
 
     private Integer totalQuantity;
     private Integer reservedQuantity;
 
-    @CreatedDate
-    @Column(nullable = false,updatable = false)
-    private LocalDateTime createdDate;
 
-    @LastModifiedDate
-    @Column(insertable = false)
-    private LocalDateTime lastModifiedDate;
 }
