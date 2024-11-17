@@ -14,7 +14,7 @@ services:
     environment:
       POSTGRES_DB: db_catalog
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 58224007yass
+      POSTGRES_PASSWORD: azerty
     ports:
       - 5434:5432
   db_inventory:

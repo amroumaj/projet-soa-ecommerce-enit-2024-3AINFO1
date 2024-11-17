@@ -3,35 +3,6 @@
   <component name="CompilerConfiguration">
     <annotationProcessing>
       <profile default="true" name="Default" enabled="true" />
-      <profile name="Maven default annotation processors profile" enabled="true">
-        <sourceOutputDir name="target/generated-sources/annotations" />
-        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
-        <outputRelativeToContentRoot value="true" />
-<<<<<<< HEAD
-        <module name="Catalog" />
-      </profile>
     </annotationProcessing>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="Catalog" options="-parameters" />
-=======
-        <module name="inventory" />
-        <module name="bank_v2" />
-      </profile>
-    </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="inventory (1)" target="17" />
-      <module name="inventory (2)" target="23" />
-    </bytecodeTargetLevel>
-  </component>
-  <component name="JavacSettings">
-    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="bank_v2" options="-parameters" />
-      <module name="inventory" options="-parameters" />
-      <module name="inventory (1)" options="-parameters" />
-      <module name="inventory (2)" options="-parameters" />
->>>>>>> e696649cdf79b932096e0f984c4d135d4a1b1277
-    </option>
   </component>
 </project>
