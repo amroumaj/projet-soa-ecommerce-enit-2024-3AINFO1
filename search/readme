@@ -1,0 +1,3 @@
+un index externe est à utiliser.
+le docker-compose proposé inclut apache solr.
+vous pouvez changer à elastic search si vous voulez.

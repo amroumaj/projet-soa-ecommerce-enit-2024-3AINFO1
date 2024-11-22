@@ -1,15 +1,3 @@
 .vscode
 settings.json
 .quarkus
-cart/
-bank/
-IAM/
-inventory/
-mailing/
-order/
-payment/
-pricing/
-rating/
-reviews/
-searc/
-shipping/
