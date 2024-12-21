@@ -1,6 +1,5 @@
 const pool = require("../db");
 const queries = require('./queries');
-
 const getCartesBancaires = async (req, res) => {
     try {
         const data = await pool.query(queries.getCartesBancaires)
@@ -10,10 +9,8 @@ const getCartesBancaires = async (req, res) => {
         res.sendStatus(500)
     }
 }
-
 const getCartesBancairesById = async (req, res) => {
     const id = parseInt(req.params.iduser)
-
     try {
         const data = await pool.query(queries.getCartesBancairesById, [id])
         res.status(200).send(data.rows)
@@ -22,10 +19,8 @@ const getCartesBancairesById = async (req, res) => {
         res.sendStatus(500)
     }  
 }
-
 const addCarteBancaire = async (req, res) => {
     const { codeCarte, codeSecret } = req.body
-
     try {
         await pool.query(queries.addCarteBancaire, [codeCarte, codeSecret])
         res.status(200).send({"Successfully added card": codeCarte})
@@ -34,18 +29,14 @@ const addCarteBancaire = async (req, res) => {
         res.sendStatus(500)
     }
 }
-
 const deleteCarteBancaire = async (req, res) => {
     const id = parseInt(req.params.iduser)
-
     pool.query(queries.getCartesBancairesById, [id], (errer, results) => {
         const noCarteBancaireFound = !results.rows.length;
-
         if (noCarteBancaireFound) {
             res.send("Card does not exist in the database");
         }
     })
-
     try {
         const data = await pool.query(queries.deleteCarteBancaire, [id])
         res.status(200).send({"Successfully deleted card": id})
@@ -54,19 +45,15 @@ const deleteCarteBancaire = async (req, res) => {
         res.sendStatus(500)
     } 
 }
-
 const updateCarteBancaire = async (req, res) => {
     const id = parseInt(req.params.iduser)
     const { codeCarte, codeSecret } = req.body
-
     pool.query(queries.getCartesBancairesById, [id], (errer, results) => {
         const noCarteBancaireFound = !results.rows.length;
-
         if (noCarteBancaireFound) {
             res.send("Card does not exist in the database");
         }
     })
-
     try {
         const data = await pool.query(queries.updateCarteBancaire, [codeCarte, codeSecret, id])
         res.status(200).send({"Successfully updated card": id})
@@ -75,7 +62,6 @@ const updateCarteBancaire = async (req, res) => {
         res.sendStatus(500)
     } 
 }
-
 module.exports = {
     getCartesBancaires,
     getCartesBancairesById,

@@ -1,9 +1,8 @@
 # payment
 
 ## Some notes
-This is the first iteration the code will be later split into different files.
-The PUT and DELETE APIs will be added later since this is just an iteration with rudimentary functionalities.
-bun can be replaced with different runtimes such as ==npm or yarn==.
+This API has all CRUD functionalities in addition to the ability to get a single row based on the iduser.
+bun can be replaced with different runtimes such as npm.
 
 ## To install dependencies:
 
@@ -30,6 +29,7 @@ psql -h localhost -p 5438 -U postgres -d db_payment
 ```
 You will be prompted for the password `azerty`
 
+The code used to create the PosgreSQL database.
 ```SQL
 CREATE TABLE cartes_bancaires (
     idUser SERIAL PRIMARY KEY,
@@ -43,7 +43,8 @@ The card code must be unique and it was made to be VARCHAR with length of 16 cha
 
 ## Testings
 
-![This is an alt text.](/assets/DB.png "DB")
-![This is an alt text.](/assets/test.png "cURL Test")
+P.S. I will be adding testing images soon to all the CRUD functionalities.
 
-This project was created using `bun init` in bun v1.1.33. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
+![Database structure](/assets/DB.png "DB")
+![Get test with curl](/assets/test.png "cURL Test")
+
