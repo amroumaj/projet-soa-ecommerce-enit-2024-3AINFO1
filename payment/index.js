@@ -1,5 +1,6 @@
 const express = require ('express');
 const cartesbancairesRoutes = require('./cartesbancaires/routes');
+const paymentsRoutes = require('./payments/routes');
 const pool = require('./db');
 
 const port = 8085;
@@ -8,6 +9,7 @@ const app = express();
 
 app.use(express.json());
 app.use('/payment/cartesbancaires', cartesbancairesRoutes);
+app.use('/payments', paymentsRoutes);
 
 
 
