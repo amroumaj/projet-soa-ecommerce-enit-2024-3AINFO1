@@ -1,6 +1,6 @@
 const express = require ('express');
-const cartesbancairesRoutes = require('./cartesbancaires/routes');
-const paymentsRoutes = require('./payments/routes');
+const cartesbancairesRoutes = require('./src/cartesbancaires/routes');
+const paymentsRoutes = require('./src/payments/routes');
 const pool = require('./db');
 
 const port = 8085;

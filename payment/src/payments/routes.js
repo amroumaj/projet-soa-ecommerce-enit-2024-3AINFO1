@@ -10,4 +10,6 @@ router.get('/explicit/:id', controller.getPaymentByIdExplicit);
 
 router.post('/', controller.addPayment);
 
+router.put('/:id', controller.paymentWentThrough);
+
 module.exports = router;

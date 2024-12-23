@@ -1,4 +1,4 @@
-const pool = require ('../db');
+const pool = require ('../../db');
 const queries = require('./queries');
 
 const getAllPayments = async (req, res) => {
@@ -57,10 +57,31 @@ const addPayment = async (req, res) => {
     }
 }
 
+const paymentWentThrough = async (req, res) => {
+    const id = parseInt(req.params.iduser)
+    const { codeCarte, codeSecret } = req.body
+
+    pool.query(queries.getPaymentById, [id], (errer, results) => {
+        const noPaymentFound = !results.rows.length;
+        if (noPaymentFound) {
+            res.send("payment does not exist in the database");
+        }
+    })
+    
+    try {
+        const data = await pool.query(queries.paymentWentThrough, [id])
+        res.status(200).send({"Successfully updated payment state": id})
+    } catch (err) {
+        console.log(err)
+        res.sendStatus(500)
+    } 
+}
+
 module.exports = {
     getAllPayments,
     getAllPaymentsExplicit,
     getPaymentById,
     getPaymentByIdExplicit, 
-    addPayment
+    addPayment,
+    paymentWentThrough
 }
