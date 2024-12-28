@@ -59,7 +59,7 @@ contains 6 fields:
 `/result/:id` returns the order id and whether the payment went through of the specified id
 
 **POST**
-`/process/` treats the payment of an order id sent in the payload 
+`/process/` treats the payment of an order id sent in the payload and adds it to the payments table
 `/` adds a payment to the payments table
 
 **PUT**
