@@ -69,7 +69,7 @@ contains 6 fields:
 
 ## Testings
 
-P.S. I will be adding testing images for all APIs in the assets folder.
+P.S. I put all testing screenshots for all APIs in the assets folder (the card number and card code are 16 digits there because I took the screenshots yesterday before I changed them to 8 digits).
 
 ![testing the API that receives teh order and sends it to the bank and receives the result ](assets/f.png)
 
