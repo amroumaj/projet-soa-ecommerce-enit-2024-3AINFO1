@@ -1,50 +1,74 @@
 # payment
 
-## Some notes
-This API has all CRUD functionalities in addition to the ability to get a single row based on the iduser.
-bun can be replaced with different runtimes such as npm.
+## Bun
 
-## To install dependencies:
+I went with bun for this project becasue it provides a superior runtime environment to node making javascript web server on par with languages such as rust and go. [read more](https://www.priver.dev/blog/benchmark/go-vs-rust-vs-bun-vs-node-http-benchmark/)
 
-```bash
-bun install
-```
+## Code layout and structure
 
-To run:
+**index.js:** The main file of the app
+**db.js:** Connection to PostgreSQL
+**init.sql** Initiating the databases for containerization purposes
 
-```bash
-bun start
-```
-## Postgres
+**cartesbancaires(directory):** Everything that has to do with bank cards (CRUD)
+**payments(directory):** Everything that has to do with payments operations
+**orders(directory):** Reception of the oreder and processing the payment
+**bank(directory):** Sending the order to the bank and receiving whether the payment went through or not
 
-Open up a terminal in the project directory and run:
+## SQL Tables
+consullt **init.sql** file for more
 
-```bash
-docker-compose up
-```
-### To recreate the DB
+### cartesbancaires
+contains 3 fields:
+* iduser of type UUID
+* codecarte of type numeric(8, 0)
+* codesecret of type numeric(4, 0)
 
-```bash
-psql -h localhost -p 5438 -U postgres -d db_payment
-```
-You will be prompted for the password `azerty`
+### payments
+contains 6 fields:
+* **id** the id of the order of type UUID
+* **customer_id** the id of the customer of type UUID
+* **card_code** the code of the card of type numeric(8, 0) by default randomly generated
+* **card_number** same as card_code always
+* **wentThrough** result of the payment of type boolean, false by default
+* **amount** the amount of the payment of type double precision
 
-The code used to create the PosgreSQL database.
-```SQL
-CREATE TABLE cartes_bancaires (
-    idUser SERIAL PRIMARY KEY,
-    codeCarte VARCHAR(16) NOT NULL UNIQUE,
-    CodeSecret VARCHAR(4) NOT NULL,
-    CHECK (codeCarte ~ '^[0-9]+$'),
-    CHECK (CodeSecret ~ '^[0-9]+$')
-);
-```
-The card code must be unique and it was made to be VARCHAR with length of 16 characters with a constraint of it being all integers instead of making it an integer type so that the leading zeros wouldn't be omitted, same for the secret code.
+## API end points
+
+### These APIs' routes are preceded with `/payment/cartesbancaires`
+
+**GET**
+`/` returns all the records from the cartesbancaires table.
+`/:iduser` returns the row for the specified *iduser*
+
+**POST**
+`/` adds a new row to the cartesbancaires table.
+
+**DELETE**
+`/:iduser` deletes the specified iduser.
+
+`/:iduser` modifies card number and card secret of the specified iduser.
+
+### These APIs' routes are preceded with `/payments`
+
+**GET**
+`/` returns the order Id, amount, card code & card number of all orders
+`/explicit` returns all the records of the table payments
+`/:id` returns the order Id, amount, card code & card number of the specified id
+`/explicit/:id` returns the row for the specified id
+`/result/:id` returns the order id and whether the payment went through of the specified id
+
+**POST**
+`/process/` treats the payment of an order id sent in the payload 
+`/` adds a payment to the payments table
+
+**PUT**
+`/:id` changes the payment result to true (called implicitly by the **/process** post API)
+
 
 ## Testings
 
-P.S. I will be adding testing images soon to all the CRUD functionalities.
+P.S. I will be adding testing images for all APIs in the assets folder.
 
-![Database structure](/assets/DB.png "DB")
-![Get test with curl](/assets/test.png "cURL Test")
+![testing the API that receives teh order and sends it to the bank and receives the result ](/assets/f.png)
 
