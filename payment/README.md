@@ -8,12 +8,13 @@ I went with bun for this project becasue it provides a superior runtime environm
 
 **index.js:** The main file of the app
 **db.js:** Connection to PostgreSQL
-**init.sql** Initiating the databases for containerization purposes
 
-**cartesbancaires(directory):** Everything that has to do with bank cards (CRUD)
-**payments(directory):** Everything that has to do with payments operations
-**orders(directory):** Reception of the oreder and processing the payment
-**bank(directory):** Sending the order to the bank and receiving whether the payment went through or not
+**src/init.sql** Initiating the databases for containerization purposes
+
+**src/cartesbancaires(directory):** Everything that has to do with bank cards (CRUD)
+**src/payments(directory):** Everything that has to do with payments operations
+**src/orders(directory):** Reception of the oreder and processing the payment
+**src/bank(directory):** Sending the order to the bank and receiving whether the payment went through or not
 
 ## SQL Tables
 consullt **init.sql** file for more
