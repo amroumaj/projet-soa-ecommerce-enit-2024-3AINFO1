@@ -70,5 +70,5 @@ contains 6 fields:
 
 P.S. I will be adding testing images for all APIs in the assets folder.
 
-![testing the API that receives teh order and sends it to the bank and receives the result ](/assets/f.png)
+![testing the API that receives teh order and sends it to the bank and receives the result ](assets/f.png)
 
